@@ -101,6 +101,8 @@ TouchableHighlight 사용 예시<br>
 
 ### #3.2 TextInput
 
+https://reactnative.dev/docs/textinput
+
 속성 맛보기
 - onFocus : 터치 시 키보드 올라오고, 텍스트 입력 준비 상태로 만들어줌. 
 - onChangeText : 입력한 Text 전달 받기.
@@ -123,33 +125,72 @@ TextInput 사용 예시
 ```js
 <TextInput placeholder={"Add a To Do"} style={styles.input}/>
 ```
+<br>
+
+1. keyboardtype 속성
+
+    https://reactnative.dev/docs/textinput#keyboardtype
+
 ```js
 <TextInput
-    keyboardType="number-pad"
-    placeholder={working ? "Add a To Do" : "Where do you want to go?"}
-    style={styles.input}
-/>
-```
-```js
-<TextInput
-    returnKeyType="send"
+    keyboardType="number-pad" // 숫자키보드
     placeholder={working ? "Add a To Do" : "Where do you want to go?"}
     style={styles.input}
 />
 ```
 
+<br>
+
+2. returnkeytype 속성
+
+    https://reactnative.dev/docs/textinput#returnkeytype
+
 ```js
 <TextInput
-    multuline
+    returnKeyType="send" // return 문구 변경
     placeholder={working ? "Add a To Do" : "Where do you want to go?"}
     style={styles.input}
 />
 ```
+<br>
+
+3. multiline 속성
+
+https://reactnative.dev/docs/textinput#multiline
 
 ```js
 <TextInput
+    multuline // 여러줄 작성
+    placeholder={working ? "Add a To Do" : "Where do you want to go?"}
+    style={styles.input}
+/>
+```
+<br>
+
+4. placeholdertextcolor 속성
+
+https://reactnative.dev/docs/textinput#placeholdertextcolor
+
+```js
+<TextInput
+    placeholderTextColor="red" // placeholder 글씨 색상 변경
+    placeholder={working ? "Add a To Do" : "Where do you want to go?"}
+    style={styles.input}
+/>
+```
+<br>
+
+5. autocapitalize 속성
+
+https://reactnative.dev/docs/textinput#autocapitalize
+
+```js
+<TextInput
+    autoCapitalize={"sentnces"} // 단어의 시작을 대문자로
     placeholderTextColor="red"
     placeholder={working ? "Add a To Do" : "Where do you want to go?"}
     style={styles.input}
 />
 ```
+
+<br>
