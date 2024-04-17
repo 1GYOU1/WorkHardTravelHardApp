@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		backgroundColor: "white",
-		paddingVertical: 15,
-		paddingHorizontal: 20,
+		paddingVertical: 15,// 상하 padding
+		paddingHorizontal: 20,// 좌우 padding
 		borderRadius: 30,
 		marginTop: 20,
 		fontSize: 18,
