@@ -36,23 +36,30 @@ nomadcoders 2024.04 ~
 
 ### #3.1 Touchables
 
-버튼 컴포넌트
-- TouchableOpacity : 터치한 요소를 약간 투명해지게 만듬.
-- TouchableHighlight : 터치 시 여러 속성을 이용하여 style을 변경할 수 있음.
-- TouchableWithoutFeedback : 화면의 가장 위에서 일어나는 탭 이벤트를 listen, 그래픽이나 다른 UI 반응을 보여주지 않음
-- Pressable : TouchableWithoutFeedback 과 비슷하게 터치 시 UI 변화 X. delayLongPress, hitSlop 속성 사용 가능 (new)
+버튼 컴포넌트 종류
+- TouchableOpacity
+- TouchableHighlight
+- TouchableWithoutFeedback
+- Pressable
 
 <br>
 
-TouchableOpacity 사용 예시
+#### TouchableOpacity
+
+- View가 터치에 적절하게 반응하도록 하는 래퍼.
+아래로 누르면 래핑된 View의 opacity가 감소하여 흐리게 표시됩니다.
 - https://reactnative.dev/docs/touchableopacity
 ```js
 <TouchableOpacity>Work</TouchableOpacity>
 ```
 <br>
 
-TouchableHighlight 사용 예시<br>
+#### TouchableHighlight
+
+- View가 터치에 적절하게 반응하도록 하는 래퍼.
+아래로 누르면 래핑된 View의 background를 표시합니다.
 - https://reactnative.dev/docs/touchablehighlight
+
 1. 단순 투명도 조절 
 ```js
 <TouchableHighlight
@@ -78,21 +85,24 @@ TouchableHighlight 사용 예시<br>
 ```
 <br> 
 
-3. TouchableWithoutFeedback 사용 예시
-    - onPress 관련 이벤트 사용 가능. 
-    - UI 변화 없음.
-    - https://reactnative.dev/docs/touchablewithoutfeedback
+#### TouchableWithoutFeedback
+- 합당한 이유가 없는 한 사용XXX.
+Press에 반응하는 모든 요소는 만졌을 때 시각적 피드백이 있어야 함.
+- onPress 관련 이벤트 사용 가능. 
+- UI 변화 없음.
+- https://reactnative.dev/docs/touchablewithoutfeedback
 ```js
 <TouchableWithoutFeedback>Travel</TouchableWithoutFeedback>
 ```
 <br>
 
-4. Pressable 사용 예시
-    - 터치 시 UI 변화 없음. 커스텀 필요
-    - onPressIn, onPressOut, onLongPress 등 사용 가능
-    - delayLongPress : 얼마나 길게 누르면 반응하게 만들지 설정 가능.
-    - hitSlop : 요소 바깥 어디까지 탭 누르는 것을 감지할지 정하는 속성
-    - https://reactnative.dev/docs/pressable
+#### Pressable
+- Pressable은 정의된 자식에 대한 다양한 Press 상호 작용 단계를 감지할 수 있는 핵심 구성 요소 래퍼입니다.
+- 터치 시 UI 변화 없음. 커스텀 필요
+- onPressIn, onPressOut, onLongPress 등 사용 가능
+- delayLongPress : 얼마나 길게 누르면 반응하게 만들지 설정 가능.
+- hitSlop : 요소 바깥 어디까지 탭 누르는 것을 감지할지 정하는 속성
+- https://reactnative.dev/docs/pressable
 ```js
 <Pressable>Travel</Pressable>
 ```
@@ -101,9 +111,9 @@ TouchableHighlight 사용 예시<br>
 
 ### #3.2 TextInput
 
-https://reactnative.dev/docs/textinput
+키보드를 통해 앱에 텍스트를 입력하기 위한 기본 구성 요소
 
-속성 맛보기
+TextInput 사용가능한 속성 맛보기
 - onFocus : 터치 시 키보드 올라오고, 텍스트 입력 준비 상태로 만들어줌. 
 - onChangeText : 입력한 Text 전달 받기.
 - keyboardType : 이메일, 폰번호 입력 등 알맞는 키보드 노출 시켜줌.
@@ -129,8 +139,12 @@ TextInput 사용 예시
 
 1. keyboardtype 속성
 
-    https://reactnative.dev/docs/textinput#keyboardtype
-
+- 이메일, 폰번호 입력 등 알맞는 키보드 노출
+- https://reactnative.dev/docs/textinput#keyboardtype
+- Keyboard Type 이미지 보기
+    - https://lefkowitz.me/visual-guide-to-react-native-textinput-keyboardtype-options/
+- 키보드 토글(Xcode)
+    - command + k
 ```js
 <TextInput
     keyboardType="number-pad" // 숫자키보드
@@ -143,7 +157,8 @@ TextInput 사용 예시
 
 2. returnkeytype 속성
 
-    https://reactnative.dev/docs/textinput#returnkeytype
+- 키패드의 엔터(return) 모양을 변경 시켜줌.
+- https://reactnative.dev/docs/textinput#returnkeytype
 
 ```js
 <TextInput
@@ -155,8 +170,8 @@ TextInput 사용 예시
 <br>
 
 3. multiline 속성
-
-https://reactnative.dev/docs/textinput#multiline
+- 텍스트가 길 경우 여러줄로 줄바꿈 처리하고 보여줌.
+- https://reactnative.dev/docs/textinput#multiline
 
 ```js
 <TextInput
@@ -194,3 +209,5 @@ https://reactnative.dev/docs/textinput#autocapitalize
 ```
 
 <br>
+
+### #3.3 To Dos
