@@ -127,6 +127,7 @@ TextInput 사용가능한 속성 맛보기
 - returnKeyType : 키패드의 엔터(return) 모양을 변경 시켜줌.
 - secureTextEntry : 비밀번호 입력 숨김 처리. ****** 형태로 입력값을 보여줌.
 - multiline : 텍스트가 길 경우 여러줄로 줄바꿈 처리하고 보여줌.
+- onSubmitEditing : 휴대폰에서 엔터, submit 버튼을 누르면 동작하는 이벤트
 
 - https://reactnative.dev/docs/textinput
 
@@ -208,6 +209,57 @@ https://reactnative.dev/docs/textinput#autocapitalize
 />
 ```
 
+6. onSubmitEditing 속성
+
+- 휴대폰에서 엔터, submit 버튼을 누르면 호출되는 이벤트
+- https://reactnative.dev/docs/textinput#onsubmitediting
+
+```js
+<TextInput
+    onSubmitEditing={addToDo}
+    onChangeText={onChangeText}
+    returnKeyType="done"
+    value={text}
+    placeholder={working ? "Add a To Do" : "Where do you want to go?"}
+    style={styles.input}
+/>
+```
+
 <br>
 
 ### #3.3 To Dos
+
+Hash Tables 구조로 todo 저장하기
+- https://youtu.be/HraOg7W3VAM?si=DcnL0E-HzV6UdDa9
+
+Object.assign
+- 여러개의 Object를 묶어주는 메소드
+- https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+
+사용법 예시
+```js
+/* 
+target : 새로 만들어질 object,
+source1 : 이전 object
+source2 : 새로운 object
+*/
+Object.assign(target, ...sources);
+Object.assign(target, source1, source2, source3);
+```
+
+work-hard-travel-hard-app/App.js
+```js
+const addToDo = () => {
+    if (text === "") {
+        return;
+    }
+    const newToDos = Object.assign({}, toDos, {
+        // key : value
+        [Date.now()]: { text, work: working },
+    });
+    // const newToDos = { ...toDos, [Date.now()]: { text, work: working } };
+    setToDos(newToDos);
+    console.log(toDos)
+    setText("");
+};
+```
