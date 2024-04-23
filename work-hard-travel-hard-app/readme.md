@@ -263,3 +263,19 @@ const addToDo = () => {
     setText("");
 };
 ```
+
+<br>
+
+### #3.4 Paint To Dos
+
+todo Object에서 키값만 배열로 가져와서 view 만들어주기
+
+```js
+<ScrollView>
+    {Object.keys(toDos).map((key) => (
+    <View style={styles.toDo} key={key}>
+        <Text style={styles.toDoText}>{toDos[key].text}</Text>
+    </View>
+    ))}
+</ScrollView>
+```
