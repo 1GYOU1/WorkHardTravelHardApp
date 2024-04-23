@@ -270,6 +270,7 @@ const addToDo = () => {
 
 todo Object에서 키값만 배열로 가져와서 view 만들어주기
 
+work-hard-travel-hard-app/App.js
 ```js
 <ScrollView>
     {Object.keys(toDos).map((key) => (
