@@ -266,17 +266,99 @@ const addToDo = () => {
 
 <br>
 
-### #3.4 Paint To Dos
+### #3.4 Paint To Dos ~ #3.5 Persist
 
 todo Object에서 키값만 배열로 가져와서 view 만들어주기
 
 work-hard-travel-hard-app/App.js
 ```js
-<ScrollView>
-    {Object.keys(toDos).map((key) => (
-    <View style={styles.toDo} key={key}>
-        <Text style={styles.toDoText}>{toDos[key].text}</Text>
-    </View>
-    ))}
+ <ScrollView>
+    {Object.keys(toDos).map((key) =>
+        toDos[key].working === working ? ( 
+            // working 값에 따라 work & travel 카테고리 나누기
+            <View style={styles.toDo} key={key}>
+                <Text style={styles.toDoText}>{toDos[key].text}</Text>
+            </View>
+        ) : null
+    )}
 </ScrollView>
+
+```
+
+<br>
+
+AsyncStorage
+- 휴대폰에 데이터 저장하기
+- local storage와 비슷하게 setItem(아이템 추가), getItem(아이템 읽기)을 사용하며, await을 사용한다는 점만 다름
+- 문자열만 저장할 수 있음. 객체를 문자열로 변환해서 저장(JSON.stringify() 함수 사용)
+- 객체로 다시 변환하려면 JSON.parse() 함수 사용
+- https://docs.expo.dev/versions/latest/sdk/async-storage/
+- https://react-native-async-storage.github.io/async-storage/docs/usage/
+
+<br>
+
+1. #### async-storage 설치
+>$ npx expo install @react-native-async-storage/async-storage
+
+2. #### 최상단에 import문 추가
+```js
+import AsyncStorage from '@react-native-async-storage/async-storage';
+```
+
+3. #### await AsyncStorage.setItem
+
+공식 예시 코드
+```js
+const storeData = async (value) => {
+  try {
+    const jsonValue = JSON.stringify(value);
+    await AsyncStorage.setItem('my-key', jsonValue);
+  } catch (e) {
+    // saving error
+  }
+};
+```
+work-hard-travel-hard-app/App.js
+```js
+const STORAGE_KEY = "@toDos";
+const saveToDos = async (toSave) => {
+  try {
+    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
+  } catch (e) {
+    // saving error
+  }
+};
+```
+
+4. #### await AsyncStorage.getItem
+
+공식 예시 코드
+```js
+const getData = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem('my-key');
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch (e) {
+    // error reading value
+  }
+};
+```
+work-hard-travel-hard-app/App.js
+```js
+const loadToDos = async () => {
+    try {
+        const s = await AsyncStorage.getItem(STORAGE_KEY);
+        console.log(s);
+        s !== null ? setToDos(JSON.parse(s)) : null;
+    } catch (e) {
+        // error reading value
+  }
+};
+```
+
+<br>
+
+### #3.6 Delete
+
+```js
 ```
