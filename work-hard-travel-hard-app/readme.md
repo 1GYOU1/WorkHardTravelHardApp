@@ -360,6 +360,21 @@ const loadToDos = async () => {
 
 ### #3.6 Delete
 
+#### Expo icon
+- Expo 자체 아이콘
+- https://icons.expo.fyi/
+
+work-hard-travel-hard-app/App.js
+```js
+import { Fontisto } from "@expo/vector-icons"; // 최상단 추가
+...
+<TouchableOpacity onPress={() => deleteToDo(key)}>
+    <Fontisto name="trash" size={18} color={theme.grey} />
+</TouchableOpacity>
+```
+
+#### todo 제거 함수 추가
+
 work-hard-travel-hard-app/App.js
 ```js
 const deleteToDo = (key) => {
@@ -372,32 +387,25 @@ const deleteToDo = (key) => {
 };
 ```
 
-alert
-- iOS만 사용 가능
+#### Alert
 - https://reactnative.dev/docs/alert
 
 work-hard-travel-hard-app/App.js
 ```js
 const deleteToDo = (key) => {
-// Alert iOS만 사용 가능
-Alert.alert("Delete To Do", "Are you sure?", [
-    { text: "Cancel" },
-    {
-    text: "I'm Sure",
-    style: "destructive",
-    onPress: () => {
-        const newToDos = { ...toDos };// todo 객체 복사해오기
-        delete newToDos[key];// id가 같은 todo 지우기
-        setToDos(newToDos);// todo 새로 교체
-        saveToDos(newToDos);
-    },
-    },
-]);
+    Alert.alert("Delete To Do", "Are you sure?", [
+        { text: "Cancel" },
+        { text: "I'm Sure", style: "destructive",// 스타일은 iOS만 가능
+            onPress: () => { // 해당 문구를 눌렀을 때
+                const newToDos = { ...toDos };// todo 객체 복사해오기
+                delete newToDos[key];// id가 같은 todo 지우기
+                setToDos(newToDos);// todo 새로 교체
+                saveToDos(newToDos);// localStorage에 추가
+            },
+        },
+    ]);
 };
 ```
-
-Expo icon
-- https://icons.expo.fyi/
 
 <br>
 

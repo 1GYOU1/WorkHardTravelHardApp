@@ -59,21 +59,18 @@ export default function App() {
 	  };
 
 	  const deleteToDo = (key) => {
-		// Alert iOS만 사용 가능
 		Alert.alert("Delete To Do", "Are you sure?", [
-		  { text: "Cancel" },
-		  {
-			text: "I'm Sure",
-			style: "destructive",
-			onPress: () => {
-			  const newToDos = { ...toDos };// todo 객체 복사해오기
-			  delete newToDos[key];// id가 같은 todo 지우기
-			  setToDos(newToDos);// todo 새로 교체
-			  saveToDos(newToDos);
+			{ text: "Cancel" },
+			{ text: "I'm Sure", style: "destructive",// 스타일은 iOS만 가능
+				onPress: () => {// 해당 문구를 눌렀을 때
+					const newToDos = { ...toDos };// todo 객체 복사해오기
+					delete newToDos[key];// id가 같은 todo 지우기
+					setToDos(newToDos);// todo 새로 교체
+					saveToDos(newToDos);// localStorage에 추가
+				},
 			},
-		  },
 		]);
-	  };
+	};
 	return (
 	<View style={styles.container}>
 		<StatusBar style="auto" />
