@@ -360,5 +360,47 @@ const loadToDos = async () => {
 
 ### #3.6 Delete
 
+work-hard-travel-hard-app/App.js
 ```js
+const deleteToDo = (key) => {
+    onPress: () => {
+        const newToDos = { ...toDos };// todo 객체 복사해오기
+        delete newToDos[key];// id가 같은 todo 지우기
+        setToDos(newToDos);// todo 새로 교체
+        saveToDos(newToDos);
+    },
+};
 ```
+
+alert
+- iOS만 사용 가능
+- https://reactnative.dev/docs/alert
+
+work-hard-travel-hard-app/App.js
+```js
+const deleteToDo = (key) => {
+// Alert iOS만 사용 가능
+Alert.alert("Delete To Do", "Are you sure?", [
+    { text: "Cancel" },
+    {
+    text: "I'm Sure",
+    style: "destructive",
+    onPress: () => {
+        const newToDos = { ...toDos };// todo 객체 복사해오기
+        delete newToDos[key];// id가 같은 todo 지우기
+        setToDos(newToDos);// todo 새로 교체
+        saveToDos(newToDos);
+    },
+    },
+]);
+};
+```
+
+Expo icon
+- https://icons.expo.fyi/
+
+<br>
+
+콜백함수인 이벤트 핸들러에 인자를 넘기는 코드
+
+https://velog.io/@devjade/%EB%A6%AC%EC%95%A1%ED%8A%B8-onClick%ED%95%A8%EC%88%98%EB%A1%9C-%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0%EB%A5%BC-%EC%A0%84%EB%8B%AC%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95
