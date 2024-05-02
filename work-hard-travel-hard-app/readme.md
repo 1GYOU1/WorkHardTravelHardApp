@@ -83,6 +83,9 @@ nomadcoders 2024.04 ~
     Travel
 </TouchableHighlight>
 ```
+![스크린샷 2024-04-17 오후 11 24 51](https://github.com/1GYOU1/WorkHardTravelHardApp/assets/90018379/eba005af-df64-4e1b-bf7f-8286ef0b0ea5)
+
+
 <br> 
 
 #### TouchableWithoutFeedback
@@ -153,6 +156,7 @@ TextInput 사용 예시
     style={styles.input}
 />
 ```
+![스크린샷 2024-04-17 오후 11 57 20](https://github.com/1GYOU1/WorkHardTravelHardApp/assets/90018379/f4021789-6024-492c-bd0e-8695831aa2f5)
 
 <br>
 
@@ -168,6 +172,8 @@ TextInput 사용 예시
     style={styles.input}
 />
 ```
+![스크린샷 2024-04-17 오후 11 56 04](https://github.com/1GYOU1/WorkHardTravelHardApp/assets/90018379/0a67cebb-080c-4ee8-b5f9-f446d82ef2ff)
+
 <br>
 
 3. multiline 속성
@@ -181,6 +187,9 @@ TextInput 사용 예시
     style={styles.input}
 />
 ```
+![스크린샷 2024-04-17 오후 11 53 39](https://github.com/1GYOU1/WorkHardTravelHardApp/assets/90018379/07b159dc-fe71-4746-b276-d5d0e9d7ffef)
+
+
 <br>
 
 4. placeholdertextcolor 속성
@@ -194,6 +203,8 @@ https://reactnative.dev/docs/textinput#placeholdertextcolor
     style={styles.input}
 />
 ```
+![스크린샷 2024-04-17 오후 11 58 27](https://github.com/1GYOU1/WorkHardTravelHardApp/assets/90018379/d1f56576-fec2-4769-84c6-f7adcad89a3f)
+
 <br>
 
 5. autocapitalize 속성
@@ -284,10 +295,13 @@ work-hard-travel-hard-app/App.js
 </ScrollView>
 
 ```
+![스크린샷 2024-04-24 오후 11 50 08](https://github.com/1GYOU1/WorkHardTravelHardApp/assets/90018379/48e005cf-8fd0-4be4-a141-be0a2f9122ab)
+![스크린샷 2024-04-24 오후 11 50 15](https://github.com/1GYOU1/WorkHardTravelHardApp/assets/90018379/c3823822-457f-469b-a5eb-d5e4430c9e56)
+
 
 <br>
 
-AsyncStorage
+#### AsyncStorage
 - 휴대폰에 데이터 저장하기
 - local storage와 비슷하게 setItem(아이템 추가), getItem(아이템 읽기)을 사용하며, await을 사용한다는 점만 다름
 - 문자열만 저장할 수 있음. 객체를 문자열로 변환해서 저장(JSON.stringify() 함수 사용)
@@ -436,6 +450,180 @@ app.json / app.config.js
     - ex) 블루투스와의 연결
     - aos에서는 java, ios에서는 swift로 제어 가능한 부분.
 - 앱 사이즈가 무거움
+
+<br>
+
+#### 최종 코드
+
+```js
+// work-hard-travel-hard-app/App.js
+import { StatusBar } from "expo-status-bar";
+import React, { useEffect, useState } from "react";
+import {
+	StyleSheet,
+	Text,
+	View,
+	TouchableOpacity,
+	TextInput,
+	Alert,
+	ScrollView,
+} from "react-native";
+import { Fontisto } from "@expo/vector-icons";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { theme } from "./colors";
+
+const STORAGE_KEY = "@toDos";
+
+export default function App() {
+	const [working, setWorking] = useState(true);
+	const [text, setText] = useState("");
+	const [toDos, setToDos] = useState({});
+	
+	useEffect(() => {
+		loadToDos();
+	}, []);
+
+	const travel = () => setWorking(false);
+	const work = () => setWorking(true);
+	const onChangeText = (payload) => setText(payload);
+	const saveToDos = async (toSave) => {
+		try {
+		  	await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
+		} catch (e) {
+		  	// saving error
+		}
+	  };
+	const loadToDos = async () => {
+		try {
+			const s = await AsyncStorage.getItem(STORAGE_KEY);
+			console.log(s);
+			s !== null ? setToDos(JSON.parse(s)) : null;
+		} catch (e) {
+			// error reading value
+	  }
+	};
+
+	const addToDo = async () => {
+		if (text === "") {
+		  return;
+		}
+		// const newToDos = Object.assign({}, toDos, {
+		//   [Date.now()]: { text, work: working },
+		// });
+		const newToDos = { ...toDos, [Date.now()]: { text, working }, };
+		setToDos(newToDos);
+		console.log(toDos)
+		await saveToDos(newToDos);
+		setText("");
+	  };
+
+	  const deleteToDo = (key) => {
+		Alert.alert("Delete To Do", "Are you sure?", [
+			{ text: "Cancel" },
+			{ text: "I'm Sure", style: "destructive",// 스타일은 iOS만 가능
+				onPress: () => {// 해당 문구를 눌렀을 때
+					const newToDos = { ...toDos };// todo 객체 복사해오기
+					delete newToDos[key];// id가 같은 todo 지우기
+					setToDos(newToDos);// todo 새로 교체
+					saveToDos(newToDos);// localStorage에 추가
+				},
+			},
+		]);
+	};
+	return (
+	<View style={styles.container}>
+		<StatusBar style="light" />
+		<View style={styles.header}>
+			<TouchableOpacity onPress={work}>
+				<Text
+				style={{ ...styles.btnText, color: working ? "white" : theme.grey }}
+				>
+				Work
+				</Text>
+			</TouchableOpacity>
+			<TouchableOpacity onPress={travel}>
+				<Text
+				style={{
+					...styles.btnText,
+					color: !working ? "white" : theme.grey,
+				}}
+				>
+				Travel
+				</Text>
+			</TouchableOpacity>
+		</View>
+		<TextInput
+		onSubmitEditing={addToDo}
+		onChangeText={onChangeText}
+		returnKeyType="done"
+		value={text}
+		placeholder={
+			working ? "What do you have to do?" : "Where do you want to go?"
+		}
+		style={styles.input}
+		/>
+		 <ScrollView>
+			{Object.keys(toDos).map((key) =>
+				toDos[key].working === working ? ( 
+					// working 값에 따라 work & travel 카테고리 나누기
+					<View style={styles.toDo} key={key}>
+						<Text style={styles.toDoText}>{toDos[key].text}</Text>
+						<TouchableOpacity onPress={() => deleteToDo(key)}>
+							<Fontisto name="trash" size={18} color={theme.grey} />
+						</TouchableOpacity>
+					</View>
+				) : null
+			)}
+      	</ScrollView>
+	</View>
+	);
+}
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: theme.bg,
+		paddingHorizontal: 20,
+	},
+	header: {
+		justifyContent: "space-between",
+		flexDirection: "row",
+		marginTop: 100,
+	},
+	btnText: {
+		fontSize: 38,
+		fontWeight: "600",
+	},
+	input: {
+		backgroundColor: "white",
+		paddingVertical: 15,// 상하 padding
+		paddingHorizontal: 20,// 좌우 padding
+		borderRadius: 30,
+		marginVertical: 20,
+		fontSize: 18,
+	},
+	toDo: {
+		backgroundColor: theme.toDoBg,
+		marginBottom: 10,
+		paddingVertical: 20,
+		paddingHorizontal: 20,
+		borderRadius: 15,
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "space-between",
+	},
+	toDoText: {
+		color: "white",
+		fontSize: 16,
+		fontWeight: "600",
+	},
+});
+
+```
+
+![Simulator Screenshot - iPhone SE (3rd generation) - 2024-05-02 at 23 59 08](https://github.com/1GYOU1/WorkHardTravelHardApp/assets/90018379/b703b41d-d680-4dab-bf72-77482ee93ea3)
+![Simulator Screenshot - iPhone SE (3rd generation) - 2024-05-02 at 23 59 22](https://github.com/1GYOU1/WorkHardTravelHardApp/assets/90018379/6ac2ed8f-d368-4b32-90ab-473c24218ecb)
+
 
 <br>
 
