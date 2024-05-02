@@ -412,3 +412,70 @@ const deleteToDo = (key) => {
 콜백함수인 이벤트 핸들러에 인자를 넘기는 코드
 
 https://velog.io/@devjade/%EB%A6%AC%EC%95%A1%ED%8A%B8-onClick%ED%95%A8%EC%88%98%EB%A1%9C-%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0%EB%A5%BC-%EC%A0%84%EB%8B%AC%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95
+
+<br>
+
+### #4 PUBLISHING OUR APPS
+
+app.json / app.config.js
+- app.json은 코드에 속하지 않는 앱 부분을 설정하기 위한 파일
+- assets 경로의 이미지로 로고 이미지, 어플 진입 시 로딩 화면 이미지 등을 바꿀 수 있음.
+- 예시
+    ```js
+    // work-hard-travel-hard-app/app.json
+    "splash": {// 어플 진입 화면
+        "image": "./assets/splash3.png",// 로고 이미지
+        "resizeMode": "contain",
+        "backgroundColor": "#000000"// 배경색
+    },
+    ```
+<br>
+
+#### Expo를 사용하지 않는 이유
+- javascript/styling을 제외한 infrastructure에 접근할 수 없음.
+    - ex) 블루투스와의 연결
+    - aos에서는 java, ios에서는 swift로 제어 가능한 부분.
+- 앱 사이즈가 무거움
+
+<br>
+
+### react-native eas 배포
+
+#### 1. 최신 EAS CLI 설치
+>$ npm install -g eas-cli
+
+#### 2. expo 계정에 로그인
+
+>$ npx expo login
+
+>$ npx eas login
+
+#### 3. 프로젝트 구성
+
+>$ npx eas build:configure
+
+#### 4. 빌드 실행 (스토어 배포용)
+
+build가 완료되면, expo 사이트 > 생성한 프로젝트 > build 된 내 앱을 확인 가능
+
+>$ npx eas build --platform android
+
+>$ npx eas build --platform ios
+
+>$ npx eas build --platform all
+
+#### 5. 빌드 리스트 확인
+
+>$ npx eas build:list
+
+#### 6. 빌드 배포
+
+>$ npx eas update
+
+#### 7. expo 사이트 > 생성한 프로젝트 > 사이드 메뉴 맨 밑 "Settings"에서 "Project Privacy"를 `Public`으로 설정
+
+#### 8. update가 끝나면 Website link 클릭, 사이트 우측 상단에 Preview QR 확인.
+
+<br>
+
+참고 url - https://docs.expo.dev/build/setup/
