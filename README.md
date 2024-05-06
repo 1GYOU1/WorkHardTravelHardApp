@@ -16,7 +16,10 @@ React-Native로 만든 할 일 목록 & 여행 리스트 앱
 
 ### 📌 주요 기술 스택
 
-<img src="https://img.shields.io/badge/ReactNative-61DAFB?style=flat-square&logo=React&logoColor=black"/>
+<div style="display:flex;">
+    <img src="https://img.shields.io/badge/ReactNative-61DAFB?style=flat-square&logo=React&logoColor=black" style="margin-right:5px;"/>
+    <img src="https://img.shields.io/badge/Expo-000020?style=flat-square&logo=Expo&logoColor=white"/>
+</div>
 
 <br>
 
