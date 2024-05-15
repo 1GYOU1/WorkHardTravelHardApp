@@ -667,3 +667,55 @@ build가 완료되면, expo 사이트 > 생성한 프로젝트 > build 된 내 �
 <br>
 
 참고 url - https://docs.expo.dev/build/setup/
+
+<br>
+
+<br>
+
+---
+
+++)2024-05-14 update
+
+<img src="https://github.com/1GYOU1/MyWeatherApp/assets/90018379/86254cec-672e-41a9-bfaf-13818be6ae07" style="width:300px;">
+
+최근 Expo Go 어플로 프로젝트 build 시켜놓은 플젝들이 상단 화면처럼 나와서 
+<br>SDK 51로 업그레이드를 시키라길래 해봤다 !
+
+1. 프로젝트 폴더 열고 하단 명령어 입력
+>$ npx expo install expo@^51.0.0 --fix
+
+2. 혹시 몰라 하단 명령어도 설치
+>$ npx expo-doctor@latest
+
+3. 프로젝트 실행하고 ios, aos에서도 추천하는 버전 설치
+>$ npm start
+
+>$ i
+
+>$ a
+
+4. yes ! 선택
+```
+✔ Expo Go 2.31.2 is recommended for SDK 51.0.0 
+Install the recommended Expo Go version? … yes
+```
+
+++) ios expo 버전 설치하다가 이런 오류가 나왔는데 냅다 패키지 설치
+
+<img src="https://github.com/1GYOU1/WorkHardTravelHardApp/assets/90018379/a8a4579e-8dfc-4880-a090-8ed1753021ae"/>
+
+<br>
+
+5. 다시 expo에 배포
+
+>$ npx eas update
+
+<br>
+
+aos ios 최종 실행 화면
+
+<img src="https://github.com/1GYOU1/WorkHardTravelHardApp/assets/90018379/d508240e-4748-44fb-aa60-531ce7b485bd" style="width:500px;">
+
+<br>
+
+참고 사이트 - https://expo.dev/changelog/2024/05-07-sdk-51
